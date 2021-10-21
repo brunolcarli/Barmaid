@@ -1,0 +1,5 @@
+-r common.txt
+
+bumpversion==0.5.3
+bpython==0.18
+docker-compose==1.26.2
