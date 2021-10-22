@@ -1,0 +1,9 @@
+[
+    {"name": "Brahma 1lt", "value": 8, "description": "Litrão de Brahma", "sprite_path": "brahma1lt.png", "sell_count": 0},
+    {"name": "Devassa 1lt", "value": 6, "description": "Litrão de Devassa", "sprite_path": "devassa1lt.png", "sell_count": 0},
+    {"name": "Heineken 600ml", "value": 6, "description": "Heineken 600ml", "sprite_path": "heineken600.png", "sell_count": 0},
+    {"name": "Marlboro maço", "value": 5, "description": "Maço contendo 20 cigarros", "sprite_path": "marlboro.png", "sell_count": 0},
+    {"name": "Dunhill maço", "value": 4, "description": "Maço contendo 20 cigarros", "sprite_path": "dunhill.png", "sell_count": 0},
+    {"name": "Camel maço", "value": 8, "description": "Maço contendo 20 cigarros", "sprite_path": "camel.png", "sell_count": 0},
+    {"name": "Jamel dose", "value": 4, "description": "Dose 50ml de pinga Jamel.", "sprite_path": "jamel_dose.png", "sell_count": 0}
+]
