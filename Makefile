@@ -3,3 +3,6 @@ install:
 
 run:
 	python3 main.py
+
+migrate:
+	python3 -c 'from core.database import init_db; init_db()'
