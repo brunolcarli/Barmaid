@@ -1,7 +1,8 @@
+import json
 import mysql.connector
 from mysql.connector import Error
 from barmaid.settings.common import (MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD,
-                                     MYSQL_DATABASE)
+                                     MYSQL_DATABASE, ITEM_REGISTRATION_FILE)
 
 
 class DBQueries:
@@ -62,10 +63,10 @@ class DBQueries:
         return f"INSERT INTO Purchases (user_id, items) VALUES ({user}, '{blob}')"
 
     @staticmethod
-    def insert_item(name, value, description=None, path=None):
+    def insert_item(name, value, description=None, path=None, sell_count=0):
         query =  f'''
-        INSERT INTO Items (name, value, description, sprite_path)
-        VALUES ('{name}', {value}, '{description}', '{path}')
+        INSERT INTO Items (name, value, description, sprite_path, sell_count)
+        VALUES ('{name}', {value}, '{description}', '{path}', {sell_count})
         '''
         return query
 
@@ -213,8 +214,23 @@ def init_db():
     """
     Initializes barmaid database:
     Creates schema and tables.
+    Register initial items from population file defined on path setted at
+    global setting variable ITEM_REGISTRATION_FILE.
+        It is suggested to write the mentioned population file as json before
+        running this command.
     """
+    try:
+        with open(ITEM_REGISTRATION_FILE, 'r') as data:
+            items = json.load(data)
+    except FileNotFoundError:
+        raise Exception(f'Population file not found on {ITEM_REGISTRATION_FILE}!')
+
+    if not items:
+        raise Exception('No item found on population file!')
+
     con = db_connection()
+
+    # Creates main schema and tables
     script = (
         DBQueries.create_schema(MYSQL_DATABASE),
         DBQueries.use_schema(MYSQL_DATABASE),
@@ -224,4 +240,18 @@ def init_db():
     )
     for statement in script:
         execute_query(con, statement)
+    print('Database and tables created!')
+
+    # populate item with initial items
+    for item in items:
+        print(f'Registering {item["name"]}')
+        query = DBQueries.insert_item(
+            name=item['name'],
+            value=item['value'],
+            description=item['description'],
+            path=item['sprite_path'],
+            sell_count=item['sell_count']
+        )
+        execute_query(con, query)
+
     print('Initial migration end.')
