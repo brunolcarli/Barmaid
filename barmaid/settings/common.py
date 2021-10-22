@@ -16,3 +16,4 @@ MYSQL_PASSWORD = config('MYSQL_PASSWORD', 'db_pwd')
 MYSQL_DATABASE = config('MYSQL_DATABASE', 'db_name')
 
 COIN_INCREASE_VALUE = .25
+ITEM_REGISTRATION_FILE = 'barmaid/items.json'
