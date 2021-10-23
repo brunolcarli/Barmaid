@@ -69,7 +69,7 @@ class User:
         Purchases are originally stored as json string on database, this
         method returns the data converted as python dict.
         """
-        return read_json(self.purchases)
+        return read_json(self.purchases) if self.purchases else self.purchases
 
 
 class Item:

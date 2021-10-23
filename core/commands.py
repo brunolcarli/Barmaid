@@ -187,9 +187,12 @@ async def purchases(ctx, param=None):
         # resolve user
         discord_id = get_discord_id(ctx.guild.id, ctx.author.id)
         user = User(discord_id)
+        purchases = user.get_purchases()
+
+        if not purchases:
+            return await ctx.send('User did not bought anything yet.')
 
         embed = discord.Embed(color=0x1E1E1E, type='rich')
-        purchases = user.get_purchases()
         for name, count in purchases.items():
             embed.add_field(name=name, value=count, inline=False)
 
