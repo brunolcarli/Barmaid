@@ -1,0 +1,8 @@
+ENV_REF=development
+TOKEN=<your_token>
+MAIN_CHANNEL=<sv_channel>
+MYSQL_HOST=<mysql_host>
+MYSQL_USER=barmaid
+MYSQL_PASSWORD=<db_pwd>
+MYSQL_DATABASE=barmaid
+MYSQL_ROOT_PASSWORD=<db_root_pass>
