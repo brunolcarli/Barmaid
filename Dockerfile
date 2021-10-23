@@ -1,20 +1,20 @@
-FROM python:3.7-alpine
+FROM ubuntu:18.04
 
-RUN apk add make
-RUN apk add --no-cache gcc libc-dev git libffi-dev openssl-dev
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y gcc && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* \
+    apt-get install make
 
-RUN mkdir /usr/src/code
-WORKDIR /usr/src/code
+RUN apt-get update && apt-get install -y python3-pip
 
-ENV PYTHONPATH /usr/src/code
+RUN mkdir /app
+WORKDIR /app
 
+RUN python3 -m pip install --upgrade cython
 COPY barmaid/requirements/common.txt .
 RUN pip3 install -r common.txt
 
-RUN apk del gcc libc-dev git libffi-dev openssl-dev
 COPY . .
-
-# RUN make migrate
-
-ENV PYTHONUNBUFFERED 1
+ENV LANG C.UTF-8
+ENV PYTHONUNBUFFERED=1
 ENV NAME barmaid
