@@ -119,3 +119,46 @@ async def view(ctx, code=None):
     embed.set_thumbnail(url=f'attachment://{picture.filename}')
 
     await ctx.send(f'Item code: {item.code}', embed=embed, file=picture)
+
+
+@client.command()
+async def buy(ctx, code=None):
+    """
+    Buy a item (if possible) by item code.
+        Usage example:
+            >buy 1
+    """
+    if not code:
+        return await ctx.send('You must specify a item code!')
+
+    if not code.isdigit():
+        return await ctx.send('Item code must be a number.')
+
+    # resolve user
+    discord_id = get_discord_id(ctx.guild.id, ctx.author.id)
+    user = User(discord_id)
+
+    # resolve item
+    try:
+        item = SpecificItem(code)
+    except NameError as err:
+        return await ctx.send(err.args[0])
+
+    try:
+        picture = discord.File(item.sprite)
+    except FileNotFoundError:
+        return await ctx.send('Item not available.')
+
+    # handle transaction possibility
+    if user.coins < item.value:
+        return await ctx.send('You dont have enough funds.')
+
+    user.add_purchase(item)
+    item.sell()
+
+    embed = discord.Embed(color=0x1E1E1E, type='rich')
+    msg = f'{item.name} for {item.value} :coin: coins!'
+    embed.add_field(name=f'{ctx.author.name} bought:', value=msg, inline=True)
+    embed.set_thumbnail(url=f'attachment://{picture.filename}')
+
+    await ctx.send(f'Purchased', embed=embed, file=picture)

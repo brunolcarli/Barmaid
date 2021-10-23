@@ -60,7 +60,7 @@ class DBQueries:
 
     @staticmethod
     def insert_purchase(user, blob):
-        return f"INSERT INTO Purchases (user_id, items) VALUES ({user}, '{blob}')"
+        return f'INSERT INTO Purchases (user_id, items) VALUES ({user}, "{blob}")'
 
     @staticmethod
     def insert_item(name, value, description=None, path=None, sell_count=0):
@@ -113,11 +113,23 @@ class DBQueries:
         return query
 
     @staticmethod
-    def update_purchases(user_id, blob):
+    def update_purchase(user_id, blob):
         query = f'''
         UPDATE Purchases
-        SET items = '{blob}'
+        SET items = "{blob}"
         WHERE user_id = {user_id}
+        '''
+        return query
+
+    @staticmethod
+    def update_item(item_id, sell_count):
+        """
+        Updates the column referent to the times an item was sold.
+        """
+        query = f'''
+        UPDATE Items
+        SET sell_count = {sell_count}
+        WHERE item_id = {item_id}
         '''
         return query
 
@@ -208,6 +220,23 @@ def get_or_create_user(discord_id):
     execute_query(con, query)
 
     return get_or_create_user(discord_id)
+
+
+def get_or_create_purchase(user_id, data):
+    condition = {'column': 'user_id', 'operator': '=', 'value': f"'{user_id}'"}
+    query = DBQueries.select_purchases(where=condition)
+
+    con = create_db_connection()
+    result = read_query(con, query)
+
+    if result:  # return the existent
+        return next(iter(result))
+
+    # object does not exist: create new
+    query = DBQueries.insert_purchase(user_id, data)
+    execute_query(con, query)
+
+    return get_or_create_user(user_id, data)
 
 
 def init_db():

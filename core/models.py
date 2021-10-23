@@ -1,3 +1,6 @@
+import json
+from ast import literal_eval as read_json
+import discord
 from core.database import create_db_connection, execute_query, get_or_create_user, read_query, DBQueries
 from core.util import condition
 
@@ -33,15 +36,32 @@ class User:
             con,
             DBQueries.update_user(self.id, self.coins)
         )
-        if self.purchases:
-            execute_query(
-                con,
-                DBQueries.update_purchases(self.id, self.purchases)
-            )
 
     def add_coin(self, value):
         self.coins += value
         self.save()
+
+    def add_purchase(self, item):
+        self.add_coin(-item.value)
+        purchases = read_json(self.purchases) if self.purchases else {}
+
+        if item.name in purchases:
+            purchases[item.name] += 1
+        else:
+            purchases[item.name] = 1
+
+        if not self.purchases:
+            execute_query(
+                create_db_connection(),
+                DBQueries.insert_purchase(self.id, purchases)
+            )
+        else:
+            execute_query(
+                create_db_connection(),
+                DBQueries.update_purchase(self.id, purchases)
+            )
+        self.purchases = f'{json.dumps(purchases)}'
+        print(f'Updated purchases for user {self.discord_id}')  # TODO: use logger
 
 
 class Item:
@@ -55,6 +75,13 @@ class Item:
 
     def __repr__(self) -> str:
         return self.name
+
+    def sell(self):
+        self.sell_count += 1
+        execute_query(
+            create_db_connection(),
+            DBQueries.update_item(self.code, self.sell_count)
+        )
 
 
 class SpecificItem(Item):
