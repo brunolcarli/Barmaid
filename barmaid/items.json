@@ -5,5 +5,18 @@
     {"name": "Marlboro maço", "value": 5, "description": "Maço contendo 20 cigarros", "sprite_path": "marlboro.png", "sell_count": 0},
     {"name": "Dunhill maço", "value": 4, "description": "Maço contendo 20 cigarros", "sprite_path": "dunhill.png", "sell_count": 0},
     {"name": "Camel maço", "value": 8, "description": "Maço contendo 20 cigarros", "sprite_path": "camel.png", "sell_count": 0},
-    {"name": "Jamel dose", "value": 4, "description": "Dose 50ml de pinga Jamel.", "sprite_path": "jamel_dose.png", "sell_count": 0}
+    {"name": "Jamel dose", "value": 4, "description": "Martelinho 50ml de cachaça Jamel.", "sprite_path": "jamel_dose.png", "sell_count": 0},
+    {"name": "Cataia dose", "value": 4, "description": "Martelinho 50ml de cachaça Cataia.", "sprite_path": "cataia_dose.png", "sell_count": 0},
+    {"name": "Jambu dose", "value": 5, "description": "Dose 100ml de Jambu.", "sprite_path": "jambu_dose.png", "sell_count": 0},
+    {"name": "Ballantines dose", "value": 8, "description": "Dose 100ml de whiskey Ballantine.", "sprite_path": "ballantine_dose.png", "sell_count": 0},
+    {"name": "Chivas dose", "value": 10, "description": "Dose 100ml de whiskey Chivas regal.", "sprite_path": "chivas_dose.png", "sell_count": 0},
+    {"name": "Jack Daniels dose", "value": 14, "description": "Dose 100ml de whiskey Jack Daniels.", "sprite_path": "jack_dose.png", "sell_count": 0},
+    {"name": "Pastel", "value": 2, "description": "Pastelzão de carne com queijo.", "sprite_path": "pastel.png", "sell_count": 0},
+    {"name": "Fritas", "value": 4, "description": "Porção de batata frita 350g.", "sprite_path": "fritas.png", "sell_count": 0},
+    {"name": "Charuto", "value": 20, "description": "Charuto cubano Vito Corleone.", "sprite_path": "charuto.png", "sell_count": 0},
+    {"name": "Jagermeister dose", "value": 10, "description": "Dose 50ml de Jagermeister.", "sprite_path": "jager.png", "sell_count": 0},
+    {"name": "Carne de onça", "value": 20, "description": "Porção 200g de carne de onça temperada.", "sprite_path": "carne_onca.png", "sell_count": 0},
+    {"name": "Hamburguer artesanal", "value": 18, "description": "Burgão 150g de picanha.", "sprite_path": "burguer.png", "sell_count": 0},
+    {"name": "Podrão", "value": 24, "description": "Burgão duplo 300g de picanha.", "sprite_path": "podrao.png", "sell_count": 0},
+    {"name": "Submarino", "value": 20, "description": "Chopp 500ml com dose de whiskey.", "sprite_path": "submarino.png", "sell_count": 0}
 ]
