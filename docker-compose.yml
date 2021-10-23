@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  barmaid_db:
+    image: mariadb:10.3
+    env_file: barmaid/environment/barmaid_env
+
+  barmaid:
+    build: .    
+    image: barmaid:devel
+    restart: on-failure
+    container_name: barmaid_container
+    command: make run
+    env_file: barmaid/environment/barmaid_env
+    volumes:
+      - .:/app
+      - static_data:/app/static
+    # ports:
+    #   - "6500:6500"
+    depends_on:
+      - barmaid_db
+
+volumes:
+  static_data:
