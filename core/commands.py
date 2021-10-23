@@ -190,7 +190,7 @@ async def purchases(ctx, param=None):
         purchases = user.get_purchases()
 
         if not purchases:
-            return await ctx.send('User did not bought anything yet.')
+            return await ctx.send('User did not buy anything yet.')
 
         embed = discord.Embed(color=0x1E1E1E, type='rich')
         for name, count in purchases.items():
