@@ -82,6 +82,9 @@ async def funds(ctx):
 
 @client.command(aliases=['store', 'list'])
 async def items(ctx):
+    """
+    Lists items for sale.
+    """
     item_list = ItemList()
 
     embed = discord.Embed(color=0x1E1E1E, type='rich')
@@ -94,6 +97,11 @@ async def items(ctx):
 
 @client.command(aliases=['v', 'item', 'code'])
 async def view(ctx, code=None):
+    """
+    View details for specifi item by code.
+        Usage example:
+            >view 5
+    """
     if not code:
         return await ctx.send('You must specify a item code!')
 
@@ -162,3 +170,44 @@ async def buy(ctx, code=None):
     embed.set_thumbnail(url=f'attachment://{picture.filename}')
 
     await ctx.send(f'Purchased', embed=embed, file=picture)
+
+
+@client.command(aliases=['pch', 'ps'])
+async def purchases(ctx, param=None):
+    """
+    Lists purchased items.
+    If no param is given, lists the user purchased items;
+    If param [a, all] is given, lists all purchased items count.
+        Usage example:
+            >ps
+            >ps a
+            >ps all
+    """
+    if not param:  # returns user purchases list
+        # resolve user
+        discord_id = get_discord_id(ctx.guild.id, ctx.author.id)
+        user = User(discord_id)
+
+        embed = discord.Embed(color=0x1E1E1E, type='rich')
+        purchases = user.get_purchases()
+        for name, count in purchases.items():
+            embed.add_field(name=name, value=count, inline=False)
+
+        total = sum(purchases.values())
+        embed.add_field(name='Total amount spent:', value=f'{total} :coin:')
+
+        avatar = f'{ctx.author.avatar_url.BASE}{ctx.author.avatar_url._url}'
+        embed.set_thumbnail(url=avatar)
+
+        return await ctx.send(f'Items purchased by: {ctx.author.name}', embed=embed)
+
+    if param and (param == 'a' or param == 'all'):
+        item_list = ItemList()
+
+        embed = discord.Embed(color=0x1E1E1E, type='rich')
+        for item in sorted(item_list.items, key=lambda i: i.sell_count, reverse=True):
+            embed.add_field(name=item.name, value=f'Times sold: {item.sell_count}', inline=True)
+
+        return await ctx.send('Sell table items:', embed=embed)
+
+    return await ctx.send('Wrong param. See >help ps for usage examples.')

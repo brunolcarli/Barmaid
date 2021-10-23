@@ -63,6 +63,14 @@ class User:
         self.purchases = f'{json.dumps(purchases)}'
         print(f'Updated purchases for user {self.discord_id}')  # TODO: use logger
 
+    def get_purchases(self) -> dict:
+        """
+        Return purchases as dict.
+        Purchases are originally stored as json string on database, this
+        method returns the data converted as python dict.
+        """
+        return read_json(self.purchases)
+
 
 class Item:
     def __init__(self, data):
