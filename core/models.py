@@ -104,10 +104,18 @@ class SpecificItem(Item):
         super().__init__(next(iter(item)))
 
 
-class ItemList:
+class ItemList(dict):
     def __init__(self):
         items = read_query(
             create_db_connection(),
             DBQueries.select_item()
         )
         self.items = [Item(item) for item in items]
+        for item in self.items:
+            self.__setitem__(item.name, item)
+
+    def __setitem__(self, key, item):
+        self.__dict__[key] = item
+
+    def __getitem__(self, key):
+        return self.__dict__[key]

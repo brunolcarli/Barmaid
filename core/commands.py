@@ -196,8 +196,13 @@ async def purchases(ctx, param=None):
         for name, count in purchases.items():
             embed.add_field(name=name, value=count, inline=False)
 
-        total = sum(purchases.values())
-        embed.add_field(name='Total amount spent:', value=f'{total} :coin:')
+        # Calculate total coins spent by the user
+        items = ItemList()
+        total = []
+        for name, count in purchases.items():
+            total.append(items[name].value * count)
+
+        embed.add_field(name='Total amount spent:', value=f'{sum(total)} :coin:')
 
         avatar = f'{ctx.author.avatar_url.BASE}{ctx.author.avatar_url._url}'
         embed.set_thumbnail(url=avatar)
@@ -208,8 +213,12 @@ async def purchases(ctx, param=None):
         item_list = ItemList()
 
         embed = discord.Embed(color=0x1E1E1E, type='rich')
+        total = []
         for item in sorted(item_list.items, key=lambda i: i.sell_count, reverse=True):
-            embed.add_field(name=item.name, value=f'Times sold: {item.sell_count}', inline=True)
+            if item.sell_count > 0:
+                embed.add_field(name=item.name, value=f'Times sold: {item.sell_count}', inline=True)
+                total.append(item.value * item.sell_count)
+        embed.add_field(name='Total coins raised', value=f'{sum(total)} :coin:', inline=False)
 
         return await ctx.send('Sell table items:', embed=embed)
 
