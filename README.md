@@ -4,7 +4,7 @@
 
 # Barmaid
 
-> [![Version badge](https://img.shields.io/badge/version-0.0.1-silver.svg)](https://lisa--brunolcarli.repl.co/graphql/?query=query%7B%0A%09lisa%0A%7D)
+> [![Version badge](https://img.shields.io/badge/version-0.1.0-silver.svg)](https://lisa--brunolcarli.repl.co/graphql/?query=query%7B%0A%09lisa%0A%7D)
 
 
 </td></tr>

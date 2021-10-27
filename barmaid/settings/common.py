@@ -4,7 +4,7 @@ Main common system settings
 from decouple import config
 
 
-__version__ = '0.0.1'
+__version__ = '0.1.0'
 
 ENV_REF = config('ENV_REF', 'development')
 TOKEN = config('TOKEN')
