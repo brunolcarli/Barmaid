@@ -18,5 +18,6 @@
     {"name": "Carne de onça", "value": 20, "description": "Porção 200g de carne de onça temperada.", "sprite_path": "carne_onca.png", "sell_count": 0},
     {"name": "Hamburguer artesanal", "value": 18, "description": "Burgão 150g de picanha.", "sprite_path": "burguer.png", "sell_count": 0},
     {"name": "Podrão", "value": 24, "description": "Burgão duplo 300g de picanha.", "sprite_path": "podrao.png", "sell_count": 0},
-    {"name": "Submarino", "value": 20, "description": "Chopp 500ml com dose de whiskey.", "sprite_path": "submarino.png", "sell_count": 0}
+    {"name": "Submarino", "value": 20, "description": "Chopp 500ml com dose de whiskey.", "sprite_path": "submarino.png", "sell_count": 0},
+    {"name": "Acompanhante de luxo", "value": 1000, "description": "Acompanhante de luxo por uma hora.", "sprite_path": "forbidden.png", "sell_count": 0}
 ]
