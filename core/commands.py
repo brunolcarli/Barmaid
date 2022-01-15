@@ -202,7 +202,7 @@ async def purchases(ctx, param=None):
         for name, count in purchases.items():
             total.append(items[name].value * count)
 
-        embed.add_field(name='Total amount spent:', value=f'{sum(total)} :coin:')
+        embed.add_field(name='Total amount spent:', value=f'{sum(total)} :coin:', inline=False)
 
         avatar = f'{ctx.author.avatar_url.BASE}{ctx.author.avatar_url._url}'
         embed.set_thumbnail(url=avatar)
